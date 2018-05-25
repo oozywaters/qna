@@ -1,3 +1,18 @@
+h1= @question.title
+p= @question.body
+
+h2 Answers
+.answers
+- if @answers.present?
+  - @answers.each do |answer|
+    - if answer.persisted?
+      p
+        b= answer.body
+        - if current_user&.author_of?(answer)
+          b= link_to 'Delete', answer_path(answer), method: :delete, data: { confirm: 'are you sure?' }
+- else
+  p No answers yet
+
 = render 'shared/errors', resource: @answer
 
 = form_with model: [@question, @answer], local: true do |form|

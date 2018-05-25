@@ -1,17 +1,15 @@
 class AnswersController < ApplicationController
+  before_action :authenticate_user!, only: %i[create]
   before_action :find_question, only: %i[new show create]
 
-  def new
-    @answer = @question.answers.build
-  end
-
   def create
+    @answers = @question.answers
     @answer = @question.answers.build(answer_params)
-
+    @answer.user = current_user
     if @answer.save
-      redirect_to @answer.question
+      redirect_to @question, notice: 'You answered a question'
     else
-      render :new
+      render 'questions/show'
     end
   end
 

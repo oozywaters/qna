@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
   sign_in_user
-  let(:question) { create(:question, user: @user) }
-  let(:answer) { create(:answer, question: question, user: @user) }
+  let!(:question) { create(:question, user: @user) }
+  let!(:answer) { create(:answer, question: question, user: @user) }
 
   describe 'POST #create' do
     context 'with valid attributes' do
@@ -32,7 +32,6 @@ RSpec.describe AnswersController, type: :controller do
   describe 'DELETE #destroy' do
     context 'user tries to delete own answer' do
       it 'delete answer' do
-        answer
         expect { delete :destroy, params: { id: answer } }.to change(Answer, :count).by(-1)
       end
 
@@ -43,11 +42,10 @@ RSpec.describe AnswersController, type: :controller do
     end
 
     context "user tries to delete someone else's answer" do
-      let(:another_user) { create(:user) }
-      let(:another_answer) { create(:answer, user: another_user, question: question) }
+      let!(:another_user) { create(:user) }
+      let!(:another_answer) { create(:answer, user: another_user, question: question) }
 
       it 'delete answer' do
-        another_answer
         expect { delete :destroy, params: { id: another_answer } }.to_not change(Answer, :count)
       end
 

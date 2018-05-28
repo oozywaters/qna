@@ -9,7 +9,7 @@ feature 'Create answer', %q{
   given(:user) { create(:user) }
   given(:question) { create(:question, user: user) }
 
-  scenario 'Authenticated user creates answer with valid attributes' do
+  scenario 'Authenticated user creates answer with valid attributes', js: true do
     sign_in(user)
 
     visit question_path(question)
@@ -20,7 +20,7 @@ feature 'Create answer', %q{
     expect(page).to have_content 'My answer'
   end
 
-  scenario 'Authenticated user creates answer with invalid attributes' do
+  scenario 'Authenticated user creates answer with invalid attributes', js: true do
     @answers = create_list(:answer, 2, question: question, user: user)
 
     sign_in(user)

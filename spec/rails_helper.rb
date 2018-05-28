@@ -64,6 +64,12 @@ RSpec.configure do |config|
   config.before(:each) { DatabaseCleaner.start }
   config.after(:each) { DatabaseCleaner.clean }
 
+  Capybara.register_driver :chrome do |app|
+    Capybara::Selenium::Driver.new(app, :browser => :chrome)
+  end
+
+  Capybara.javascript_driver = :chrome
+
   Shoulda::Matchers.configure do |config|
     config.integrate do |with|
       # Choose a test framework:

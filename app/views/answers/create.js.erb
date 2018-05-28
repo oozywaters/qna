@@ -1,0 +1,8 @@
+<% if @answer.errors.present? %>
+  $('#answer_errors').html('<%= j render "shared/errors", resource: @answer %>');
+<% else %>
+  $('.answers').append('<%= j render @answer %>');
+  $("#answer_body").val('');
+  $('#answer_errors').html('');
+  $('.notice').html('<%= j render "shared/flash" %>');
+<% end %>

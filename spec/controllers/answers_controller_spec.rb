@@ -78,13 +78,14 @@ RSpec.describe AnswersController, type: :controller do
   describe 'DELETE #destroy' do
     context 'user tries to delete own answer' do
       it 'delete answer' do
-        expect { delete :destroy, params: { id: answer } }.to change(Answer, :count).by(-1)
+        expect { delete :destroy, params: { id: answer }, format: :js }.to change(Answer, :count).by(-1)
       end
 
-      it 'redirect to index view' do
-        delete :destroy, params: { id: answer }
-        expect(response).to redirect_to question_path(answer.question)
+      it 'render destroy template' do
+        delete :destroy, params: { id: answer }, format: :js
+        expect(response).to render_template :destroy
       end
+
     end
 
     context "user tries to delete someone else's answer" do
@@ -92,13 +93,9 @@ RSpec.describe AnswersController, type: :controller do
       let!(:another_answer) { create(:answer, user: another_user, question: question) }
 
       it 'delete answer' do
-        expect { delete :destroy, params: { id: another_answer } }.to_not change(Answer, :count)
+        expect { delete :destroy, params: { id: another_answer }, format: :js }.to_not change(Answer, :count)
       end
 
-      it 'redirect to index view' do
-        delete :destroy, params: { id: another_answer }
-        expect(response).to redirect_to question_path(another_answer.question)
-      end
     end
   end
 end

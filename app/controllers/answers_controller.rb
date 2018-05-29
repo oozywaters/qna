@@ -26,7 +26,6 @@ class AnswersController < ApplicationController
     else
       flash[:alert] = "Сan not remove someone else's answer"
     end
-    redirect_to @answer.question
   end
 
   private

@@ -11,15 +11,16 @@ feature 'Delete answer', %q{
   given!(:question) { create(:question, user: user) }
   given!(:answer) { create(:answer, question: question, user: user) }
 
-  scenario 'Delete my answer' do
+  scenario 'Delete my answer', js: true do
     sign_in(user)
     visit question_path(question)
-    click_on 'Delete'
+
+    accept_alert do
+      click_on 'Delete'
+    end
 
     expect(page).to have_content 'Answer was successfully deleted'
-    within '.answers' do
-      expect(page).to have_no_content answer.body
-    end
+    expect(page).to have_no_content answer.body
   end
 
   scenario "Delete someone else's answer" do

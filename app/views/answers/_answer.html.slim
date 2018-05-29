@@ -1,4 +1,10 @@
-div
+div class="answer_#{answer.id}"
   p= answer.body
   - if current_user&.author_of?(answer)
-    b= link_to 'Delete', answer_path(answer), method: :delete, data: { confirm: 'are you sure?' }
+    p= link_to 'Delete', answer_path(answer), method: :delete, data: { confirm: 'are you sure?' }
+    p= link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
+    p
+      = form_with model: [answer], id: "edit-answer-#{answer.id}", class: 'edit_answer' do |f|
+        = f.label :body, "Answer"
+        = f.text_area :body
+        = f.submit 'Save'

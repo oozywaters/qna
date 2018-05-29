@@ -1,9 +1,8 @@
-div class="answer_#{answer.id}"
+div class=(["answer_#{answer.id}", ("answer-best" if answer.best)])
   p= answer.body
-  - if answer.best
-    p *
   - if current_user&.author_of?(answer)
-    p= link_to 'Best', select_best_answer_path(answer), method: :patch, remote: true
+    - if !answer.best?
+      p= link_to 'Best', select_best_answer_path(answer), method: :patch, remote: true
     p= link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
     p= link_to 'Delete', answer_path(answer), method: :delete, data: { confirm: 'are you sure?', remote: true }
     p

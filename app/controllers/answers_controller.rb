@@ -22,6 +22,7 @@ class AnswersController < ApplicationController
   def select_best
     if current_user.author_of?(@answer.question)
       @answer.select_best
+      @question = @answer.question
     else
       flash[:alert] = 'You are not the author of this question'
     end

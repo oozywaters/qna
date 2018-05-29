@@ -116,7 +116,7 @@ RSpec.describe AnswersController, type: :controller do
 
     it "User tries to choose the best answer of someone else's question" do
       patch :select_best, params: { id: other_answer }, format: :js
-      expect(flash[:alert]).to eq "You can not choose the best answer from someone else's question"
+      expect(flash[:alert]).to eq "You are not the author of this question"
     end
   end
 end

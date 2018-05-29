@@ -21,7 +21,8 @@ feature 'Select best answer', %q{
       click_link "Best"
       expect(page).to_not have_link "Best"
     end
-    within ".best_true" do
+
+    within ".answer-best" do
       expect(page).to have_content(answer.body)
     end
   end
@@ -39,7 +40,7 @@ feature 'Select best answer', %q{
     end
 
     scenario 'After selecting a new answer, the old one becomes simple' do
-      within ".best_true" do
+      within ".answer-best" do
         expect(page).to_not have_content(best_answer.body)
       end
 
@@ -49,7 +50,7 @@ feature 'Select best answer', %q{
     end
 
     scenario 'After choosing a new best answer, he takes his place' do
-      within ".best_true" do
+      within ".answer-best" do
         expect(page).to have_content(best_answer.body)
       end
 
@@ -57,7 +58,7 @@ feature 'Select best answer', %q{
         expect(page).to_not have_link "Best"
       end
 
-      within ".best_true" do
+      within ".answer-best" do
         expect(page).to have_content(answer.body)
       end
     end

@@ -4,6 +4,7 @@ RSpec.describe AnswersController, type: :controller do
   sign_in_user
   let!(:question) { create(:question, user: @user) }
   let!(:answer) { create(:answer, question: question, user: @user) }
+  let(:other_user) { create(:user) }
 
   describe 'POST #create' do
     context 'with valid attributes' do
@@ -61,6 +62,16 @@ RSpec.describe AnswersController, type: :controller do
     it 'render update template' do
       patch :update, params: { id: answer, answer: attributes_for(:answer) }, format: :js
       expect(response).to render_template :update
+    end
+
+    context 'Other user' do
+      let(:other_answer) { create(:answer, question: question, user: other_user) }
+
+      it "User tries to edit someone else's answer" do
+        patch :update, params: { id: other_answer, question_id: question, answer: { body: 'new body'} }, format: :js
+        other_answer.reload
+        expect(other_answer.body).to_not eq 'new body'
+      end
     end
   end
 

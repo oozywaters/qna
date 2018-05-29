@@ -15,9 +15,7 @@ feature 'Delete answer', %q{
     sign_in(user)
     visit question_path(question)
 
-    accept_alert do
-      click_on 'Delete'
-    end
+    click_on 'Delete'
 
     expect(page).to have_content 'Answer was successfully deleted'
     expect(page).to have_no_content answer.body

@@ -1,5 +1,17 @@
-tr
-  td= question.title
-  td= link_to 'Show', question
+.question_errors
+div class="question_#{question.id}"
+  p
+    h2 = question.title
+  p
+    h3 = question.body
   - if current_user&.author_of?(question)
-    td= link_to 'Delete', question_path(question), method: :delete, data: { confirm: 'Are you sure?' }
+    p= link_to 'Edit', '', class: 'edit-question-link', data: {question_id: question.id}
+    p= link_to 'Delete', question_path(question), method: :delete, data: { confirm: 'Are you sure?' }
+    div id="edit-question-form#{question.id}" class="edit-question-form"
+      = form_with model: question do |f|
+        = f.label :title
+        = f.text_field :title
+
+        = f.label :body
+        = f.text_area :body
+        = f.submit 'Save'

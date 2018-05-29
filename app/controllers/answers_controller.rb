@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, only: %i[create destroy]
+  before_action :authenticate_user!, only: %i[create destroy select_best]
   before_action :find_question, only: %i[create]
-  before_action :find_answer, only: %i[update destroy]
+  before_action :find_answer, only: %i[update destroy select_best]
 
   def create
     @answer = @question.answers.build(answer_params)
@@ -16,6 +16,14 @@ class AnswersController < ApplicationController
       @question = @answer.question
     else
       flash[:alert] = "Сan not edit someone else's answer"
+    end
+  end
+
+  def select_best
+    if current_user.author_of?(@answer.question)
+      @answer.select_best
+    else
+      flash[:alert] = 'You are not the author of this question'
     end
   end
 

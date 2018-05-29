@@ -98,4 +98,25 @@ RSpec.describe AnswersController, type: :controller do
 
     end
   end
+
+  describe 'PATCH #select_best' do
+    let!(:other_question) { create(:question, user: other_user) }
+    let(:other_answer) { create(:answer, question: other_question, user: other_user) }
+
+    it 'assigns answer to @answer' do
+      patch :select_best, params: { id: answer }, format: :js
+      expect(assigns(:answer)).to eq answer
+    end
+
+    it 'The author of the question tries to choose the best question' do
+      patch :select_best, params: { id: answer }, format: :js
+      answer.reload
+      expect(answer).to be_best
+    end
+
+    it "User tries to choose the best answer of someone else's question" do
+      patch :select_best, params: { id: other_answer }, format: :js
+      expect(flash[:alert]).to eq "You can not choose the best answer from someone else's question"
+    end
+  end
 end

@@ -4,11 +4,10 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.all
-    p @questions
   end
 
   def show
-    @answers = @question.answers
+    @answers = @question.answers.order(best: :desc, created_at: :desc)
     @answer = @question.answers.build
   end
 

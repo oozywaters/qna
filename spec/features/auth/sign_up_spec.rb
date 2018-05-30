@@ -1,5 +1,4 @@
-require 'rails_helper'
-
+require_relative '../features_helper'
 feature 'User sign up', %q{
   Is order to be able to sign in
   As a guest user

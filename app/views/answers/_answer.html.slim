@@ -1,4 +1,12 @@
-div
+div class=(["answer_#{answer.id}", ("answer-best" if answer.best)])
   p= answer.body
   - if current_user&.author_of?(answer)
-    b= link_to 'Delete', answer_path(answer), method: :delete, data: { confirm: 'are you sure?' }
+    - if !answer.best?
+      p= link_to 'Best', select_best_answer_path(answer), method: :patch, remote: true
+    p= link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
+    p= link_to 'Delete', answer_path(answer), method: :delete, data: { confirm: 'are you sure?', remote: true }
+    p
+      = form_with model: [answer], id: "edit-answer-#{answer.id}", class: 'edit_answer' do |f|
+        = f.label :body, "Answer"
+        = f.text_area :body
+        = f.submit 'Save'

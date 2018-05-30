@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative '../features_helper'
 
 feature 'Delete answer', %q{
   In order to delete answer
@@ -11,15 +11,14 @@ feature 'Delete answer', %q{
   given!(:question) { create(:question, user: user) }
   given!(:answer) { create(:answer, question: question, user: user) }
 
-  scenario 'Delete my answer' do
+  scenario 'Delete my answer', js: true do
     sign_in(user)
     visit question_path(question)
+
     click_on 'Delete'
 
     expect(page).to have_content 'Answer was successfully deleted'
-    within '.answers' do
-      expect(page).to have_no_content answer.body
-    end
+    expect(page).to have_no_content answer.body
   end
 
   scenario "Delete someone else's answer" do

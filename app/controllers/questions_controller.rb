@@ -1,13 +1,13 @@
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
-  before_action :find_question, only: %i[show destroy]
+  before_action :authenticate_user!, except: %i[index show update]
+  before_action :find_question, only: %i[show destroy update]
 
   def index
     @questions = Question.all
   end
 
   def show
-    @answers = @question.answers
+    @answers = @question.answers.by_best
     @answer = @question.answers.build
   end
 
@@ -33,6 +33,15 @@ class QuestionsController < ApplicationController
       flash[:alert] = "Сan not remove someone else's question"
     end
     redirect_to questions_path
+  end
+
+  def update
+    if current_user.author_of?(@question)
+      @question.update(question_params)
+      flash[:notice] = 'Question was succesfully edited'
+    else
+      flash[:alert] = "You can not delete someone else's question"
+    end
   end
 
   private

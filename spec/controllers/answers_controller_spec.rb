@@ -4,6 +4,7 @@ RSpec.describe AnswersController, type: :controller do
   sign_in_user
   let!(:question) { create(:question, user: @user) }
   let!(:answer) { create(:answer, question: question, user: @user) }
+  let(:other_user) { create(:user) }
 
   describe 'POST #create' do
     context 'with valid attributes' do
@@ -39,16 +40,52 @@ RSpec.describe AnswersController, type: :controller do
     end
   end
 
+  describe 'PATCH #update' do
+    let(:answer) { create(:answer, question: question, user: @user) }
+
+    it 'assigns the requested answer to @answer' do
+      patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer) }, format: :js
+      expect(assigns(:answer)).to eq answer
+    end
+
+    it 'assigns th question' do
+      patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer) }, format: :js
+      expect(assigns(:question)).to eq question
+    end
+
+    it 'changes answer attributes' do
+      patch :update, params: { id: answer, question_id: question, answer: { body: 'new body'} }, format: :js
+      answer.reload
+      expect(answer.body).to eq 'new body'
+    end
+
+    it 'render update template' do
+      patch :update, params: { id: answer, answer: attributes_for(:answer) }, format: :js
+      expect(response).to render_template :update
+    end
+
+    context 'Other user' do
+      let(:other_answer) { create(:answer, question: question, user: other_user) }
+
+      it "User tries to edit someone else's answer" do
+        patch :update, params: { id: other_answer, question_id: question, answer: { body: 'new body'} }, format: :js
+        other_answer.reload
+        expect(other_answer.body).to_not eq 'new body'
+      end
+    end
+  end
+
   describe 'DELETE #destroy' do
     context 'user tries to delete own answer' do
       it 'delete answer' do
-        expect { delete :destroy, params: { id: answer } }.to change(Answer, :count).by(-1)
+        expect { delete :destroy, params: { id: answer }, format: :js }.to change(Answer, :count).by(-1)
       end
 
-      it 'redirect to index view' do
-        delete :destroy, params: { id: answer }
-        expect(response).to redirect_to question_path(answer.question)
+      it 'render destroy template' do
+        delete :destroy, params: { id: answer }, format: :js
+        expect(response).to render_template :destroy
       end
+
     end
 
     context "user tries to delete someone else's answer" do
@@ -56,13 +93,30 @@ RSpec.describe AnswersController, type: :controller do
       let!(:another_answer) { create(:answer, user: another_user, question: question) }
 
       it 'delete answer' do
-        expect { delete :destroy, params: { id: another_answer } }.to_not change(Answer, :count)
+        expect { delete :destroy, params: { id: another_answer }, format: :js }.to_not change(Answer, :count)
       end
 
-      it 'redirect to index view' do
-        delete :destroy, params: { id: another_answer }
-        expect(response).to redirect_to question_path(another_answer.question)
-      end
+    end
+  end
+
+  describe 'PATCH #select_best' do
+    let!(:other_question) { create(:question, user: other_user) }
+    let(:other_answer) { create(:answer, question: other_question, user: other_user) }
+
+    it 'assigns answer to @answer' do
+      patch :select_best, params: { id: answer }, format: :js
+      expect(assigns(:answer)).to eq answer
+    end
+
+    it 'The author of the question tries to choose the best question' do
+      patch :select_best, params: { id: answer }, format: :js
+      answer.reload
+      expect(answer).to be_best
+    end
+
+    it "User tries to choose the best answer of someone else's question" do
+      patch :select_best, params: { id: other_answer }, format: :js
+      expect(flash[:alert]).to eq "You are not the author of this question"
     end
   end
 end

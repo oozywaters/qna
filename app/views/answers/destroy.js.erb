@@ -1,0 +1,6 @@
+<% if @answer.errors.present? %>
+  $('#answer_errors').html('<%= j render "shared/errors", resource: @answer %>');
+<% else %>
+  $('.notice').html('<%= j render "shared/flash" %>');
+  $('.answer_<%= @answer.id %>').remove();
+<% end %>

@@ -8,7 +8,7 @@ class Answer < ApplicationRecord
 
   scope :by_best, -> { order(best: :desc, created_at: :desc) }
 
-  accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :attachments, reject_if: :all_blank
 
   def select_best
     old_best = question.answers.find_by(best: true)

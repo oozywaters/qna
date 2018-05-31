@@ -3,6 +3,7 @@
 <% else %>
   $('.answers').append('<%= j render @answer %>');
   $("#answer_body").val('');
+  $(".nested-fields").remove();
   $('#answer_errors').html('');
   $('.notice').html('<%= j render "shared/flash" %>');
 <% end %>

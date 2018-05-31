@@ -41,6 +41,8 @@ ActiveRecord::Schema.define(version: 2018_05_31_151440) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.bigint "best_answer_id"
+    t.index ["best_answer_id"], name: "index_questions_on_best_answer_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
@@ -63,5 +65,6 @@ ActiveRecord::Schema.define(version: 2018_05_31_151440) do
 
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
+  add_foreign_key "questions", "answers", column: "best_answer_id"
   add_foreign_key "questions", "users"
 end

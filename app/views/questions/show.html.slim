@@ -14,7 +14,10 @@ h2 Answers
 = form_with model: [@question, @answer] do |form|
   = form.label :body
   = form.text_area :body
-  = form.fields_for :attachments do |a|
-    = a.label :file
-    = a.file_field :file
-  = form.submit 'Post your answer'
+  #attachments
+    = form.fields_for :attachments do |attachment|
+      = render 'shared/attachment_fields', f: attachment
+
+
+      = link_to_add_association 'Add attachment', form, :attachments, partial: 'shared/attachment_fields'
+  = form.submit

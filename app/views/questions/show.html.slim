@@ -1,6 +1,6 @@
 .notice
-h1= @question.title
-p= @question.body
+
+= render @question
 
 h2 Answers
 .answers
@@ -11,13 +11,12 @@ h2 Answers
 
 #answer_errors
 
-= form_with model: [@question, @answer] do |form|
+= form_with model: [@question, @answer], class: 'new_answer_form' do |form|
   = form.label :body
   = form.text_area :body
   #attachments
     = form.fields_for :attachments do |attachment|
       = render 'shared/attachment_fields', f: attachment
-
 
       = link_to_add_association 'Add attachment', form, :attachments, partial: 'shared/attachment_fields'
   = form.submit

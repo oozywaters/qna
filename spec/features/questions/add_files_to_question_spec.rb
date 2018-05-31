@@ -37,15 +37,14 @@ feature 'Add files to question', %q{
   scenario 'Deleting a file after creation', js: true do
     click_on 'Create'
     click_link 'Remove file'
-    page.driver.browser.switch_to.alert.accept
     expect(page).to_not have_link 'spec_helper.rb'
   end
 
   scenario 'Another user does not see the link delete', js: true do
     click_on 'Create'
-    click_on 'Log out'
+    sign_out
     sign_in(other_user)
-    click_link Question.last.title
+    click_link 'Show'
     expect(page).to_not have_link 'Remove file'
   end
 end

@@ -15,7 +15,7 @@ feature 'Delete answer', %q{
     sign_in(user)
     visit question_path(question)
 
-    click_on 'Delete'
+    click_on 'Delete Answer'
 
     expect(page).to have_content 'Answer was successfully deleted'
     expect(page).to have_no_content answer.body
@@ -25,12 +25,12 @@ feature 'Delete answer', %q{
     sign_in(another_user)
     visit question_path(question)
 
-    expect(page).to_not have_link 'Delete'
+    expect(page).to_not have_link 'Delete Answer'
   end
 
   scenario 'Non-authenticated guest tries to delete answer' do
     visit question_path(question)
 
-    expect(page).to_not have_link 'Delete'
+    expect(page).to_not have_link 'Delete Answer'
   end
 end

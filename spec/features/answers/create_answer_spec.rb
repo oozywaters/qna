@@ -14,7 +14,7 @@ feature 'Create answer', %q{
 
     visit question_path(question)
     fill_in 'Body', with: 'My answer'
-    click_on 'Post your answer'
+    click_on 'Create Answer'
 
     expect(page).to have_content 'You answered a question'
     expect(page).to have_content 'My answer'
@@ -27,7 +27,7 @@ feature 'Create answer', %q{
 
     visit question_path(question)
     fill_in 'Body', with: ''
-    click_on 'Post your answer'
+    click_on 'Create Answer'
 
     expect(page).to have_content "Body can't be blank"
     expect(page).to have_no_content "No answers yet"
@@ -38,7 +38,7 @@ feature 'Create answer', %q{
   scenario 'Non-authenticated user try to create answer' do
     visit question_path(question)
     fill_in 'Body', with: 'My answer'
-    click_on 'Post your answer'
+    click_on 'Create Answer'
 
     expect(page).to have_content 'You need to sign in or sign up before continuing.'
   end

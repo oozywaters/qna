@@ -4,4 +4,9 @@
   = f.text_field :title
   = f.label :body
   = f.text_area :body
-  = f.submit 'Create'
+  #attachments
+    = f.fields_for :attachments do |attachment|
+      = render 'shared/attachment_fields', f: attachment
+
+      = link_to_add_association 'Add attachment', f, :attachments, partial: 'shared/attachment_fields'
+  = f.submit

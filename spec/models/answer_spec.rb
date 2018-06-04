@@ -10,4 +10,6 @@ RSpec.describe Answer, type: :model do
   it { should accept_nested_attributes_for :attachments }
 
   it { should have_db_index(:question_id) }
+
+  it_behaves_like "ratingable"
 end

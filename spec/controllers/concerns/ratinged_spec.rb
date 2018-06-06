@@ -8,7 +8,7 @@ shared_examples_for "ratinged" do
   describe 'POST #vote_up' do
     it 'user votes two times' do
       post :vote_up, params: { id: resource }
-      expect(post :vote_up, params: { id: resource }).to have_http_status(:unprocessable_entity)
+      expect(post :vote_up, params: { id: resource }).to have_http_status(:forbidden)
     end
 
     it "user votes for someone else's model" do
@@ -23,7 +23,7 @@ shared_examples_for "ratinged" do
   describe 'POST #vote_down' do
     it 'user votes two times' do
       post :vote_down, params: { id: resource }
-      expect(post :vote_down, params: { id: resource }).to have_http_status(:unprocessable_entity)
+      expect(post :vote_down, params: { id: resource }).to have_http_status(:forbidden)
     end
 
     it "user votes for someone else's model" do

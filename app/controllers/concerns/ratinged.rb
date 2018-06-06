@@ -29,7 +29,7 @@ module Ratinged
 
   def vote_access
     if @resource.voted_by?(current_user) || current_user.author_of?(@resource)
-      head :unprocessable_entity
+      head :forbidden
     end
   end
 

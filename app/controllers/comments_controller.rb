@@ -16,7 +16,9 @@ class CommentsController < ActionController::Base
 
   def publish_comment
     return if @comment.errors.any?
-    ActionCable.server.broadcast("comments_for_question_#{resource_question_id}", comment: @comment )
+    ActionCable.server.broadcast(
+        "comments_for_question_#{resource_question_id}", comment: @comment
+    )
   end
 
   def resource_question_id
@@ -24,7 +26,7 @@ class CommentsController < ActionController::Base
   end
 
   def find_resource
-    klass = [Question, Answer].detect{|c| params["#{c.name.underscore}_id"]}
+    klass = [Question, Answer].detect { |c| params["#{c.name.underscore}_id"] }
     @resource = klass.find(params["#{klass.name.underscore}_id"])
   end
 end

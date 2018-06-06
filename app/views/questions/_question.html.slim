@@ -4,6 +4,7 @@ div class="question_#{question.id}"
     h2 = question.title
   p
     h3 = question.body
+  p= render 'shared/rating', resource: question
   p= link_to 'Show', question
   p Attachments:
   ul

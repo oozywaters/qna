@@ -1,4 +1,6 @@
 class Question < ApplicationRecord
+  include Ratingable
+
   has_many :answers, dependent: :destroy
   has_many :attachments, as: :attachable
 

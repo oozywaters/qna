@@ -119,4 +119,9 @@ RSpec.describe AnswersController, type: :controller do
       expect(flash[:alert]).to eq "You are not the author of this question"
     end
   end
+
+  it_behaves_like 'ratinged' do
+    let(:resource) { create(:answer, user: other_user, question: question) }
+    let(:other_resource) { create(:answer, user: @user, question: question) }
+  end
 end

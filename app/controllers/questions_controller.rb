@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  include Ratinged
+
   before_action :authenticate_user!, except: %i[index show update]
   before_action :find_question, only: %i[show destroy update]
 

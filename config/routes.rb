@@ -10,9 +10,13 @@ Rails.application.routes.draw do
     end
   end
 
+  concern :commentable do
+    resources :comments, only: :create, shallow: true
+  end
+
   resources :attachments, only: :destroy
-  resources :questions, except: [:edit], concerns: [:ratingable] do
-    resources :answers, only: [:create, :destroy, :update], shallow: true, concerns: [:ratingable] do
+  resources :questions, except: [:edit], concerns: [:ratingable, :commentable] do
+    resources :answers, only: [:create, :destroy, :update], shallow: true, concerns: [:ratingable, :commentable] do
       member do
         patch :select_best
       end

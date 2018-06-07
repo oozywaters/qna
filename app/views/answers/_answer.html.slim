@@ -16,3 +16,8 @@ div class=(["answer_#{answer.id}", ("answer-best" if answer.best)])
         = f.label :body, "Answer"
         = f.text_area :body
         = f.submit 'Save'
+  div class="comment_#{answer.class}_#{answer.id}"
+    p
+      = render answer.comments
+    p
+      = render 'comments/form', resource: answer

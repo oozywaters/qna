@@ -1,5 +1,5 @@
 .question_errors
-div class="question_#{question.id}"
+div class="question question_#{question.id}" data-id="#{question.id}"
   p
     h2 = question.title
   p
@@ -24,3 +24,9 @@ div class="question_#{question.id}"
         = f.label :body
         = f.text_area :body
         = f.submit 'Save'
+  h4 Comments
+  div class="comment_#{question.class}_#{question.id}"
+    p
+      = render question.comments
+    p
+      = render 'comments/form', resource: question

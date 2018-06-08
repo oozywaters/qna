@@ -5,7 +5,7 @@
   = f.label :body
   = f.text_area :body
   #attachments
-    = f.fields_for :attachments do |attachment|
+    = f.fields_for :attachments, @question.attachments.build do |attachment|
       = render 'shared/attachment_fields', f: attachment
 
       = link_to_add_association 'Add attachment', f, :attachments, partial: 'shared/attachment_fields'

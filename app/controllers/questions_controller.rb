@@ -1,56 +1,45 @@
 class QuestionsController < ApplicationController
   include Ratinged
 
-  before_action :authenticate_user!, except: %i[index show update]
-  before_action :find_question, only: %i[show destroy update]
+  before_action :authenticate_user!, except: %i[index show]
+  before_action :find_question, only: %i[show]
+  before_action :find_current_user_question, only: [:destroy, :update]
+  before_action :build_answer, only: :show
 
   after_action :publish_question, only: :create
 
+  respond_to :js, :html
+
   def index
-    @questions = Question.all
+    respond_with(@questions = Question.all)
   end
 
   def show
-    @answers = @question.answers.by_best
-    @answer = @question.answers.build
-    @answer.attachments.build
+    respond_with(@question)
   end
 
   def new
-    @question = current_user.questions.build
-    @question.attachments.build
+    respond_with(@question = current_user.questions.build)
   end
 
   def create
-    @question = current_user.questions.build(question_params)
-
-    if @question.save
-      redirect_to @question, notice: 'Your question was successfully created.'
-    else
-      render :new
-    end
+    respond_with(@question = current_user.questions.create(question_params))
   end
 
   def destroy
-    if current_user.author_of?(@question)
-      @question.destroy
-      flash[:notice] = 'Question was successfully deleted'
-    else
-      flash[:alert] = "Сan not remove someone else's question"
-    end
-    redirect_to questions_path
+    respond_with(@question.destroy)
   end
 
   def update
-    if current_user.author_of?(@question)
-      @question.update(question_params)
-      flash[:notice] = 'Question was succesfully edited'
-    else
-      flash[:alert] = "You can not delete someone else's question"
-    end
+    @question.update(question_params)
+    respond_with @question
   end
 
   private
+
+  def build_answer
+    @answer = @question.answers.build
+  end
 
   def question_params
     params.require(:question).permit(:title, :body, attachments_attributes: [:file, :id, :_destroy])
@@ -58,6 +47,11 @@ class QuestionsController < ApplicationController
 
   def find_question
     @question = Question.find(params[:id])
+    @answers = @question.answers.by_best
+  end
+
+  def find_current_user_question
+    @question = current_user.questions.find(params[:id])
   end
 
   def publish_question

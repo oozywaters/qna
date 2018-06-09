@@ -15,7 +15,7 @@ h2 Answers
   = form.label :body
   = form.text_area :body
   #attachments
-    = form.fields_for :attachments do |attachment|
+    = form.fields_for :attachments, @answer.attachments.build do |attachment|
       = render 'shared/attachment_fields', f: attachment
 
       = link_to_add_association 'Add attachment', form, :attachments, partial: 'shared/attachment_fields'

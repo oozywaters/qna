@@ -48,6 +48,10 @@ gem 'cocoon'
 gem 'skim', '~> 0.10.0'
 gem 'gon', '~> 6.2'
 gem 'responders', '~> 2.4'
+gem 'omniauth', '~> 1.8'
+gem 'omniauth-vkontakte', '~> 1.4'
+gem 'omniauth-twitter', '~> 1.4'
+gem 'capybara-email', '~> 3.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -66,6 +70,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'letter_opener', '~> 1.6'
 end
 
 group :test do

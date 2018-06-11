@@ -3,6 +3,9 @@ require "selenium/webdriver"
 
 Capybara.default_max_wait_time = 5
 Capybara.server = :puma
+ActionDispatch::IntegrationTest
+Capybara.server_port = 3001
+Capybara.app_host = 'http://localhost:3001'
 Capybara.javascript_driver = :headless_chrome
 Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)

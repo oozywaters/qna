@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users
   root to: 'questions#index'
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+
+  resources :users, only: [] do
+    member do
+      get :add_email
+      patch :signup_email
+    end
+  end
 
   concern :ratingable do
     member do

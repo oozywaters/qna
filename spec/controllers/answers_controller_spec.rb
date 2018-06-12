@@ -41,8 +41,6 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'PATCH #update' do
-    let(:answer) { create(:answer, question: question, user: @user) }
-
     it 'assigns the requested answer to @answer' do
       patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer) }, format: :js
       expect(assigns(:answer)).to eq answer
@@ -68,7 +66,7 @@ RSpec.describe AnswersController, type: :controller do
       let(:other_answer) { create(:answer, question: question, user: other_user) }
 
       it "User tries to edit someone else's answer" do
-        patch :update, params: { id: other_answer, question_id: question, answer: { body: 'new body'} }, format: :js
+        expect { patch :update, params: { id: other_answer, question_id: question, answer: { body: 'new body'} }, format: :js }.to raise_exception(ActiveRecord::RecordNotFound)
         other_answer.reload
         expect(other_answer.body).to_not eq 'new body'
       end
@@ -76,8 +74,9 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    context 'user tries to delete own answer' do
+    context 'User tries to delete his answer' do
       it 'delete answer' do
+        answer
         expect { delete :destroy, params: { id: answer }, format: :js }.to change(Answer, :count).by(-1)
       end
 
@@ -85,17 +84,20 @@ RSpec.describe AnswersController, type: :controller do
         delete :destroy, params: { id: answer }, format: :js
         expect(response).to render_template :destroy
       end
-
     end
 
-    context "user tries to delete someone else's answer" do
-      let!(:another_user) { create(:user) }
-      let!(:another_answer) { create(:answer, user: another_user, question: question) }
 
-      it 'delete answer' do
-        expect { delete :destroy, params: { id: another_answer }, format: :js }.to_not change(Answer, :count)
+    context "User tries to remove someone else's answer" do
+      before do
+        @user2 = create(:user)
+        @answer2 = create(:answer, user: @user2, question: question)
       end
 
+      it 'Delete answer' do
+        expect {
+          expect { delete :destroy, params: { id: @answer2 }, format: :js }.to raise_exception(ActiveRecord::RecordNotFound)
+        }.to_not change(Answer, :count)
+      end
     end
   end
 
@@ -116,7 +118,7 @@ RSpec.describe AnswersController, type: :controller do
 
     it "User tries to choose the best answer of someone else's question" do
       patch :select_best, params: { id: other_answer }, format: :js
-      expect(flash[:alert]).to eq "You are not the author of this question"
+      expect(response).to have_http_status(:forbidden)
     end
   end
 

@@ -16,8 +16,9 @@ feature 'Create answer', %q{
     fill_in 'Body', with: 'My answer'
     click_on 'Create Answer'
 
-    expect(page).to have_content 'You answered a question'
-    expect(page).to have_content 'My answer'
+    within '.answers' do
+      expect(page).to have_content 'My answer'
+    end
   end
 
   scenario 'Authenticated user creates answer with invalid attributes', js: true do

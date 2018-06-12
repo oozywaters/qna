@@ -23,7 +23,7 @@ class Ability
 
     alias_action :vote_up, :vote_down, :vote_reset, to: :vote
     can :vote, [Question, Answer] do |resource|
-      user.non_author_of?(resource)
+      user.not_author_of?(resource)
     end
 
     can :destroy, Attachment do |attachment|
@@ -31,7 +31,7 @@ class Ability
     end
 
     can :select_best, Answer do |answer|
-      user.author_of?(answer.question) && !answer.best?
+      user.author_of?(answer.question)
     end
   end
 end

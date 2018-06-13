@@ -21,9 +21,14 @@ class Ability
     can :destroy, [Question, Answer], user_id: user.id
     can :update, [Question, Answer], user_id: user.id
 
-    alias_action :vote_up, :vote_down, :vote_reset, to: :vote
+    alias_action :vote_up, :vote_down, to: :vote
+
     can :vote, [Question, Answer] do |resource|
       user.not_author_of?(resource)
+    end
+
+    can :vote_reset, [Question, Answer] do |resource|
+      resource.voted_by?(user)
     end
 
     can :destroy, Attachment do |attachment|

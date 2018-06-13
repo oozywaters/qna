@@ -28,6 +28,9 @@ RSpec.describe Ability, type: :model do
     it { should_not be_able_to :manage, :all }
 
     context 'Question' do
+      let!(:vote) { create(:rating, ratingable: other_question, user: user) }
+      let!(:other_vote) { create(:rating, ratingable: question, user: other_user) }
+
       it { should be_able_to :create, Question }
       it { should be_able_to :destroy, question, user: user }
       it { should_not be_able_to :destroy, other_question, user: user }
@@ -40,6 +43,9 @@ RSpec.describe Ability, type: :model do
     end
 
     context 'Answer' do
+      let!(:vote) { create(:rating, ratingable: other_answer, user: user) }
+      let!(:other_vote) { create(:rating, ratingable: answer, user: other_user) }
+
       it { should be_able_to :create, Answer }
       it { should be_able_to :destroy, answer, user: user }
       it { should_not be_able_to :destroy, other_answer, user: user }

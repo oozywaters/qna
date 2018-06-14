@@ -3,42 +3,30 @@ class AnswersController < ApplicationController
 
   before_action :authenticate_user!, only: %i[create destroy select_best]
   before_action :find_question, only: %i[create]
-  before_action :find_answer, only: %i[update destroy select_best]
+  before_action :find_answer, only: %i[select_best]
+  before_action :find_current_user_answer, only: %i[destroy update]
 
   after_action :publish_answer, only: :create
+
+  authorize_resource
 
   def create
     @answer = @question.answers.build(answer_params)
     @answer.user = current_user
     @answer.save
-    flash[:notice] = 'You answered a question'
   end
 
   def update
-    if current_user.author_of?(@answer)
-      @answer.update(answer_params)
-      @question = @answer.question
-    else
-      flash[:alert] = "Сan not edit someone else's answer"
-    end
+    @answer.update(answer_params)
+    @question = @answer.question
   end
 
   def select_best
-    if current_user.author_of?(@answer.question)
-      @answer.select_best
-      @question = @answer.question
-    else
-      flash[:alert] = 'You are not the author of this question'
-    end
+    @answer.select_best unless @answer.best?
   end
 
   def destroy
-    if current_user.author_of?(@answer)
-      @answer.destroy
-      flash[:notice] = 'Answer was successfully deleted'
-    else
-      flash[:alert] = "Сan not remove someone else's answer"
-    end
+    @answer.destroy
   end
 
   private
@@ -53,6 +41,10 @@ class AnswersController < ApplicationController
 
   def find_answer
     @answer = Answer.find(params[:id])
+  end
+
+  def find_current_user_answer
+    @answer = current_user.answers.find(params[:id])
   end
 
   def publish_answer

@@ -7,6 +7,14 @@ class ApplicationController < ActionController::Base
   self.responder = ApplicationResponder
   respond_to :html
 
+  rescue_from CanCan::AccessDenied do |exception|
+    respond_to do |format|
+      format.json { head :forbidden }
+      format.html { redirect_to root_path, alert: exception.message }
+      format.js   { head :forbidden }
+    end
+  end
+
   private
 
   def ensure_signup_complete

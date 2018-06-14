@@ -1,1 +1,5 @@
-$('.answers').html('<%= j render @question.answers.by_best %>');
+<% if flash.present? %>
+  $('.flash').html('<%= j render "shared/flash" %>');
+<% else %>
+  $('.answers').html('<%= j render @answer.question.answers.by_best %>');
+<% end %>

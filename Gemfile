@@ -53,7 +53,7 @@ gem 'omniauth-vkontakte', '~> 1.4'
 gem 'omniauth-twitter', '~> 1.4'
 gem 'capybara-email', '~> 3.0'
 gem 'cancancan', '~> 2.2'
-gem 'doorkeeper', '~> 4.3.2'
+gem 'doorkeeper', '4.2.6'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

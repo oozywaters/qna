@@ -5,6 +5,19 @@ RSpec.describe User, type: :model do
   it { should have_many(:answers) }
   it { should have_many(:comments) }
 
+  describe '#admin?' do
+    let(:user) { create(:user) }
+    let(:admin) { create(:admin) }
+
+    it 'return false for not admin' do
+      expect(user.admin?).to be_falsey
+    end
+
+    it 'return true for admin' do
+      expect(admin.admin?).to be_truthy
+    end
+  end
+
   describe "#author_of?(resource)" do
     let(:user) { create(:user) }
     let(:another_user) { create(:user) }

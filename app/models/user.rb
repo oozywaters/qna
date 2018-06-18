@@ -10,6 +10,10 @@ class User < ApplicationRecord
   has_many :comments
   has_many :authorizations, dependent: :destroy
 
+  def admin?
+    is_a?(Admin)
+  end
+
   def author_of?(resource)
     resource.user_id == id
   end

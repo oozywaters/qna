@@ -118,6 +118,11 @@ describe 'answers API' do
           expect(response).to be_successful
         end
 
+        it 'returns newly created answer' do
+          answer_create(:answer, question)
+          expect(response.body).to eq question.answers.last.to_json
+        end
+
         it 'answer is associated with the question' do
           expect { answer_create(:answer, question) }.to change(question.answers, :count).by(1)
         end

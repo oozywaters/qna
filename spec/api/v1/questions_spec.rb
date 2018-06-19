@@ -118,6 +118,11 @@ describe 'questions API' do
           expect(response).to be_successful
         end
 
+        it 'returns newly created question' do
+          question_create(:question)
+          expect(response.body).to eq user.questions.last.to_json
+        end
+
         it 'question is associated with the user' do
           expect { question_create(:question) }.to change(user.questions, :count).by(1)
         end

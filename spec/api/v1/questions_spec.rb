@@ -115,6 +115,7 @@ describe 'questions API' do
       context 'with valid attributes' do
         it 'saves the new question in the database' do
           expect { question_create(:question) }.to change(Question, :count).by(1)
+          expect(response).to be_successful
         end
 
         it 'question is associated with the user' do
@@ -125,6 +126,7 @@ describe 'questions API' do
       context 'with invalid attributes' do
         it 'does not save the question' do
           expect { question_create(:invalid_question) }.to_not change(Question, :count)
+          expect(response).to have_http_status(:unprocessable_entity)
         end
       end
     end

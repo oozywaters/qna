@@ -115,16 +115,19 @@ describe 'answers API' do
       context 'with valid attributes' do
         it 'saves the new answer in the database' do
           expect { answer_create(:answer, question) }.to change(Answer, :count).by(1)
+          expect(response).to be_successful
         end
 
         it 'answer is associated with the question' do
           expect { answer_create(:answer, question) }.to change(question.answers, :count).by(1)
         end
+
       end
 
       context 'with invalid attributes' do
         it 'does not save the answer' do
           expect { answer_create(:invalid_answer, question) }.to_not change(Answer, :count)
+          expect(response).to have_http_status(:unprocessable_entity)
         end
       end
     end

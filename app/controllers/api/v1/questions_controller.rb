@@ -12,7 +12,8 @@ class Api::V1::QuestionsController < Api::V1::BaseController
   end
 
   def create
-    current_user.questions.create(question_params)
+    @question = current_user.questions.create(question_params)
+    respond_with(@question)
   end
 
   private

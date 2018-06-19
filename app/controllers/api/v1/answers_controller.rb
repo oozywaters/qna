@@ -16,6 +16,7 @@ class Api::V1::AnswersController < Api::V1::BaseController
     @answer = @question.answers.build(answer_params)
     @answer.user = current_user
     @answer.save
+    respond_with(@answer)
   end
 
   private

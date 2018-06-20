@@ -41,7 +41,7 @@ describe 'questions API' do
       let(:comment) { comments.last }
       let(:attachment) { attachments.last }
 
-      before { get "/api/v1/questions/#{question.id}", params: { format: :json, access_token: access_token.token } }
+      before { do_request(access_token: access_token.token) }
 
       it_behaves_like "response successful"
 

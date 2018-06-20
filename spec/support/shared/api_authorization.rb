@@ -17,3 +17,9 @@ shared_examples_for "response successful" do
     expect(response).to be_successful
   end
 end
+
+shared_examples_for "returns array size" do |resource, count, resource_path = ''|
+  it "returns #{resource}" do
+    expect(response.body).to have_json_size(count).at_path(resource_path)
+  end
+end

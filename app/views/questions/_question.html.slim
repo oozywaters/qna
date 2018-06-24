@@ -6,6 +6,13 @@ div class="question question_#{question.id}" data-id="#{question.id}"
     h3 = question.body
   p= render 'shared/rating', resource: question
   p= link_to 'Show', question
+  - if can?(:create, Subscription)
+    - if question.subscribed?(current_user)
+      p= link_to subscription_path(question.subscribed?(current_user)), method: :delete do
+        | Unsubscribe
+    - else
+      p= link_to question_subscriptions_path(question), method: :post do
+        | Subscribe
   p Attachments:
   ul
     - question.attachments.each do |a|

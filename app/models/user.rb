@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :answers
   has_many :comments
   has_many :authorizations, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
 
   def admin?
     is_a?(Admin)
@@ -42,5 +43,11 @@ class User < ApplicationRecord
 
     user.authorizations.create(provider: auth.provider, uid: auth.uid)
     user
+  end
+
+  def self.send_daily_digest
+    find_each.each do |user|
+      DailyMailer.digest(user).deliver_later
+    end
   end
 end

@@ -17,17 +17,17 @@
           .card.blue-grey.darken-1
             .card-content.white-text
               - case resource.class.to_s
-              - when 'Question'
-              span.card-title= link_to resource.title, resource
-              - when 'User', 'Admin'
-              span.card-title= resource.email
-              - when 'Answer'
-              span.card-title= link_to resource.body, resource.question
-              - when 'Comment'
-              - if resource.commentable.is_a?(Answer)
-                span.card-title= link_to resource.body, resource.commentable.question
-              - else
-                span.card-title= link_to resource.body, resource.commentable
-              p= resource.class.to_s
+                - when 'Question'
+                  span.card-title= link_to resource.title, resource
+                - when 'User', 'Admin'
+                  span.card-title= resource.email
+                - when 'Answer'
+                  span.card-title= link_to resource.body, resource.question
+                - when 'Comment'
+                  - if resource.commentable.is_a?(Answer)
+                    span.card-title= link_to resource.body, resource.commentable.question
+                  - else
+                    span.card-title= link_to resource.body, resource.commentable
+                / p= resource.class.to_s
   - else
     h4.center.red-text= "No results found for #{params[:query]}."

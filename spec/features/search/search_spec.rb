@@ -66,8 +66,6 @@ feature 'Search', %q{
       click_button 'Search'
       expect(page).to_not have_link question.title
       expect(page).to have_link answer.body
-      expect(page).to_not have_link answer_comment.body
-      expect(page).to_not have_link question_comment.body
       expect(page).to_not have_content user.email
     end
   end

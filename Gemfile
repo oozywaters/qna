@@ -59,6 +59,8 @@ gem 'oj', '~> 3.6'
 gem 'oj_mimic_json', '~> 1.0'
 gem 'sidekiq'
 gem 'whenever'
+gem 'mysql2', '~> 0.3',    :platform => :ruby
+gem 'thinking-sphinx', '~> 4.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

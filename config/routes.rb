@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     resources :comments, only: :create, shallow: true
   end
 
+  resources :search, only: :index
+
   resources :attachments, only: :destroy
   resources :questions, except: [:edit], concerns: [:ratingable, :commentable] do
     resources :answers, only: [:create, :destroy, :update], shallow: true, concerns: [:ratingable, :commentable] do

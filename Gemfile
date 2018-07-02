@@ -61,6 +61,8 @@ gem 'sidekiq'
 gem 'whenever'
 gem 'mysql2', '~> 0.3',    :platform => :ruby
 gem 'thinking-sphinx', '~> 4.0'
+gem 'dotenv'
+gem 'dotenv-deployment', require: 'dotenv/deployment'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -80,6 +82,12 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'letter_opener', '~> 1.6'
+
+  # Deployment tools
+  gem 'capistrano', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rvm', require: false
 end
 
 group :test do

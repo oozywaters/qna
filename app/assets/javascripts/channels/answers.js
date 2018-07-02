@@ -1,5 +1,5 @@
 $(document).on('turbolinks:load', function() {
-    const questionId = $('.question').data('id');
+    var questionId = $('.question').data('id');
     App.cable.subscriptions.create('AnswersChannel', {
         connected: function() {
             this.perform('follow', {

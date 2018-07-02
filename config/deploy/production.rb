@@ -22,6 +22,7 @@ role :web, %w{deployer@188.166.26.137}
 role :db,  %w{deployer@188.166.26.137}
 
 set :rails_env, :production
+set :stage, :production
 
 # Configuration
 # =============

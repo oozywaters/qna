@@ -61,8 +61,7 @@ gem 'sidekiq'
 gem 'whenever'
 gem 'mysql2', '~> 0.3',    :platform => :ruby
 gem 'thinking-sphinx', '~> 4.0'
-gem 'dotenv'
-gem 'dotenv-deployment', require: 'dotenv/deployment'
+gem 'dotenv-rails'
 gem 'therubyracer'
 
 group :development, :test do

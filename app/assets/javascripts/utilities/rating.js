@@ -1,6 +1,8 @@
 $(document).on('turbolinks:load', function() {
     $('.vote').bind('ajax:success', function(e) {
-        var [data, status, xhr] = e.detail;
+        var data = e.detail.data;
+        var status = e.detail.status;
+        var xhr = e.detail.xhr;
         var parentClass = ".rating_" + data.klass + "_" + data.id;
         afterVote(parentClass, data.rating);
     });

@@ -1,6 +1,10 @@
 require "application_responder"
 
 class ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception
+  # That's all there is:
+  prepend_view_path Rails.root.join("frontend")
+
   before_action :gon_user
   before_action :ensure_signup_complete
 

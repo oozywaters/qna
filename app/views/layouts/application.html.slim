@@ -4,10 +4,8 @@ html
     title QnA
     = Gon::Base.render_data
     meta name="viewport" content="width=device-width, initial-scale=1.0"
-    = stylesheet_link_tag    "application", media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag "application", 'data-turbolinks-track' => true
     = csrf_meta_tags
-
+    = stylesheet_pack_tag 'application'
   body
     nav
       span= link_to 'Search', search_index_path
@@ -22,3 +20,4 @@ html
     p.alert
       = alert
     = yield
+    = javascript_pack_tag 'application'

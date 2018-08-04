@@ -62,7 +62,7 @@ gem 'whenever'
 gem 'mysql2', '~> 0.3',    :platform => :ruby
 gem 'thinking-sphinx', '~> 4.0'
 gem 'dotenv-rails'
-gem 'therubyracer'
+# gem 'therubyracer'
 gem 'unicorn'
 gem "react_on_rails", "11.0.0" # Update to the current version
 gem "webpacker", "~> 3" # Newer versions might be supported
@@ -108,3 +108,5 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem 'mini_racer', platforms: :ruby

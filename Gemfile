@@ -64,6 +64,8 @@ gem 'thinking-sphinx', '~> 4.0'
 gem 'dotenv-rails'
 gem 'therubyracer'
 gem 'unicorn'
+gem "react_on_rails", "11.0.0" # Update to the current version
+gem "webpacker", "~> 3" # Newer versions might be supported
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

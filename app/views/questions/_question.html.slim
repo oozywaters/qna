@@ -1,5 +1,5 @@
 - cache question do
-  = react_component "QuestionSummary", props: { question: question}
+  = react_component "QuestionSummary", props: { question: question}, prerender: true
   .question_errors
   div class="question question_#{question.id}" data-id="#{question.id}"
     p

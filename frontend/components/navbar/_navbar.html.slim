@@ -1,0 +1,9 @@
+.navbar
+  .container
+    span= link_to 'Search', search_index_path
+    - if user_signed_in?
+      span= current_user.email
+      span= link_to 'Log out', destroy_user_session_path, method: :delete
+    - else
+      span= link_to 'Sign in', new_user_session_path
+      span= link_to 'Sign up', new_user_registration_path

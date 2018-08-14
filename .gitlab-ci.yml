@@ -1,0 +1,11 @@
+stages:
+  - release
+
+deploy_app:
+  stage: release
+  only:
+    - master
+  tags:
+    - ansible
+  script:
+    - 'ansible-playbook ./ansible/deploy.yml -i ./ansible/hosts'

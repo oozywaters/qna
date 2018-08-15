@@ -1,2 +1,7 @@
 ---
+- name: Perform Safe Upgrade
+  apt: upgrade=safe update_cache=yes
+
 - import_tasks: hostname.yml
+- import_tasks: swap.yml
+  when: swap_enabled is defined and swap_enabled == true

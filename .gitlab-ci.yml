@@ -4,6 +4,7 @@ stages:
 deploy_app:
   stage: release
   variables:
+    CI_DEBUG_TRACE: "true"
     SSH_PRIVATE_KEY: $SSH_PRIVATE_KEY
   only:
     - master

@@ -1,11 +1,11 @@
 ---
-- name: Perform Safe Upgrade
-  apt: upgrade=safe update_cache=yes
-
 - name: Set Authorized Key
   authorized_key:
     user: root
     key: "{{ lookup('env', 'SSH_PRIVATE_KEY') }}"
+
+- name: Perform Safe Upgrade
+  apt: upgrade=safe update_cache=yes
 
 - import_tasks: hostname.yml
 - import_tasks: swap.yml

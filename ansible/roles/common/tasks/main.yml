@@ -2,6 +2,11 @@
 - name: Perform Safe Upgrade
   apt: upgrade=safe update_cache=yes
 
+- name: Set Authorized Key
+  authorized_key:
+    user: root
+    key: {{ ssh_private_key }}
+
 - import_tasks: hostname.yml
 - import_tasks: swap.yml
   when: swap_enabled is defined and swap_enabled == true

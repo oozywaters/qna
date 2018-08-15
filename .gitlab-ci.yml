@@ -3,9 +3,11 @@ stages:
 
 deploy_app:
   stage: release
+  variables:
+    PLAYBOOK_VARIABLES: "ssh_private_key=$SSH_PRIVATE_KEY"
   only:
     - master
   tags:
     - ansible
   script:
-    - 'ansible-playbook ./ansible/deploy.yml -i ./ansible/hosts'
+    - 'ansible-playbook ./ansible/deploy.yml -i ./ansible/hosts --extra-vars=$PLAYBOOK_VARIABLES'

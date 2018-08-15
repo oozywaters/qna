@@ -3,7 +3,7 @@ stages:
 
 deploy_app:
   stage: release
-  environment:
+  variables:
     SSH_PRIVATE_KEY: $SSH_PRIVATE_KEY
   only:
     - master

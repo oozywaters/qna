@@ -10,4 +10,4 @@ deploy_app:
   tags:
     - ansible
   script:
-    - 'ansible-playbook ./ansible/deploy.yml -i ./ansible/hosts'
+    - 'ansible-playbook ./ansible/deploy.yml -i ./ansible/hosts --verbose'

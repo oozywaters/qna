@@ -5,7 +5,7 @@
 - name: Set Authorized Key
   authorized_key:
     user: root
-    key: {{ ssh_private_key }}
+    key: "{{ lookup('env', 'SSH_PRIVATE_KEY') }}"
 
 - import_tasks: hostname.yml
 - import_tasks: swap.yml

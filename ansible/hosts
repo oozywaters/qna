@@ -1,1 +1,1 @@
-142.93.131.85 ansible_ssh_private_key="{{ lookup('env', 'SSH_PRIVATE_KEY') }}"
+142.93.131.85 ansible_ssh_private_key="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQ/Yum1fpp9vR8H5nPr1IVMglhHY8M/afMUBTbgijISVYMb85GwwDwYDkbyu2R+OpWWPYRHAAhosOnEtWcyeqPrxAYOCyos+VZ825s/DacZT4mffNoxAIZCyHV/+eQh0yLCA7railz+dkyKD6qfT2wFWS4OkroSW28sci8eLPQEBpQmOLxh/x+BeXzmxEIKtA7wEfLA27HNIhWhIPA197KrL1bfFAMni5TCDvBOfRcUVIEg4Gb1B8lj9xl9PZxTV9sXfi4fN8CH9LsZuniZHXcVXU7zXyt5/HP31ap4qEiUwBe0q01mjYSz/6nqrEU/lzaqA5VQizaNOF2bbi2vWjX root@ubuntu-s-1vcpu-1gb-ams3-01"

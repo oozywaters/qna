@@ -38,7 +38,7 @@ certbot_email: SET_EMAIL_HERE
 # This copies your local public key to the remote machine
 # for passwordless login. Modify this!
 ssh_public_key_files:
-  - /Users/SET_YOUR_LOCAL_USERNAME_HERE/.ssh/id_rsa.pub
+  - ~/.ssh/id_rsa.pub
 
 # MySQL
 mysql_root_db_password: SET_PASSWORD_HERE

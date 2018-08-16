@@ -1,6 +1,8 @@
 ---
 - name: Install Rails Server
   hosts: all
-  remote_user: root
+  remote_user: {{ deploy_user }}
+  become: yes
+  become_method: sudo
   roles:
     - common

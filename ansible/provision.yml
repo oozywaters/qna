@@ -1,0 +1,6 @@
+---
+- name: Install Rails Server
+  hosts: all
+  remote_user: root
+  roles:
+    - deploy-user

@@ -1,4 +1,6 @@
 ---
+ansible_python_interpreter: /usr/bin/python3
+
 # Server Timzone + Locale
 timezone: Europe/Berlin
 locale: en_US.UTF-8
@@ -14,7 +16,7 @@ deploy_dir: /home/deploy/
 deploy_user: deploy
 deploy_password: SET_PASSWORD_HERE
 deploy_app_name: SET_APP_NAME_HERE
-deploy_server_hostname: 142.93.142.117
+deploy_server_hostname: 188.166.76.15
 shared_dirs:
   - releases
   - repo

@@ -1,0 +1,3 @@
+---
+- name: Add deployment user
+  action: 'user name={{ deploy_user }} password={{ deploy_password }} generate_ssh_key=yes shell=/bin/bash'

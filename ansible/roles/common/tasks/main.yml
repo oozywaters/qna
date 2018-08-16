@@ -1,7 +1,4 @@
 ---
-- debug:
-    msg: "{{ lookup('env', 'SSH_PRIVATE_KEY') }}"
-
 - name: Perform Safe Upgrade
   apt: upgrade=safe update_cache=yes
 

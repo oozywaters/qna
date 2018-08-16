@@ -2,14 +2,16 @@ stages:
   - release
 
 before_script:
+  - mkdir -p ~/.ssh
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+  - chmod 700 ~/.ssh/id_rsa
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
   - eval $(ssh-agent -s)
-  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-  - cat ~/.ssh/id_rsa.pub
-  - mkdir -p ~/.ssh
-  - chmod 700 ~/.ssh
+  - ssh-add ~/.ssh/id_rsa
+  - ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub
   - ssh-keyscan -H '188.166.76.15' >> ~/.ssh/known_hosts
   - chmod 644 ~/.ssh/known_hosts
+  - cat ~/.ssh/id_rsa.pub
 
 deploy_app:
   stage: release

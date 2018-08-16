@@ -1,21 +1,22 @@
 stages:
   - release
 
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan -H '142.93.131.85' >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+
 deploy_app:
   stage: release
-  before_script:
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-    - ssh-keyscan -H '142.93.131.85' >> ~/.ssh/known_hosts
-    - chmod 644 ~/.ssh/known_hosts
-  variables:
-    CI_DEBUG_TRACE: "true"
+#  variables:
+#    CI_DEBUG_TRACE: "true"
   only:
     - master
   tags:
     - ansible
   script:
-    - 'ansible-playbook ./ansible/deploy.yml -i ./ansible/hosts -vv'
+    - 'ansible-playbook ./ansible/deploy.yml -i ./ansible/hosts'

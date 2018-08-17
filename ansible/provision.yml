@@ -1,5 +1,5 @@
 ---
-- name: Install Rails Server
+- name: Initial server setup
   hosts: all
   remote_user: root
   roles:

@@ -1,0 +1,7 @@
+---
+- name: Move docker-compose.yml to remote host
+  template: src=docker-compose.yml.j2 dest={{ deploy_dir }}/docker-compose.yml
+
+- name: Run docker-compose
+  docker_service:
+    project_src: '{{ deploy_dir }}'

@@ -1,0 +1,9 @@
+---
+- name: Create Nginx image folder
+  file: path={{ deploy_dir }}/docker-images/nginx state=directory
+
+- name: Copy Dockefile
+  copy: src=Dockerfile dest={{ deploy_dir }}/docker-images/nginx/Dockerfile
+
+#- name: copy nginx vhosts conf file
+#  template: src=rails-app.conf.j2 dest={{ deploy_dir }}/docker-images/nginx/rails-app.conf

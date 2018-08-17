@@ -1,5 +1,5 @@
 ---
-ansible_python_interpreter: /usr/bin/python3
+ansible_python_interpreter: /usr/bin/python3.5
 
 # Server Timzone + Locale
 timezone: Europe/Berlin
@@ -12,10 +12,10 @@ swap_file_path: /swapfile
 swap_file_size_kb: 1024
 
 # General settings
-deploy_dir: /home/deploy/
+deploy_dir: /home/deploy/qna
 deploy_user: deploy
 deploy_password: SET_PASSWORD_HERE
-deploy_app_name: SET_APP_NAME_HERE
+deploy_app_name: qna
 deploy_server_hostname: 142.93.133.29
 shared_dirs:
   - releases

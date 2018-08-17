@@ -5,6 +5,8 @@ stages:
 build:
   stage: build
   image: docker:stable
+  only:
+    - master
   services:
     - docker:dind
   before_script:

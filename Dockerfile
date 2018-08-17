@@ -10,6 +10,8 @@ RUN rm -f /etc/service/nginx/down
 RUN rm /etc/nginx/sites-enabled/default
 ADD nginx.conf /etc/nginx/sites-enabled/qna_website.conf
 
+RUN apt-get update && apt-get install -y tzdata
+
 ADD . /home/app/qna
 WORKDIR /home/app/qna
 RUN chown -R app:app /home/app/qna

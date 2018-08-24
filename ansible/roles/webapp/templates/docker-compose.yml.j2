@@ -1,5 +1,5 @@
 nginx:
-  build: ./docker-images/nginx
-  container_name: nginx
+  image: registry.gitlab.com/oozywaters/qna:latest
+  container_name: qna
   ports:
-    - '8080:8080'
+    - '80:80'

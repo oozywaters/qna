@@ -16,6 +16,8 @@ ADD . /home/app/qna
 WORKDIR /home/app/qna
 RUN chown -R app:app /home/app/qna
 RUN bundle install --deployment
-RUN RAILS_ENV=production rake assets:precompile
+RUN RAILS_ENV=production SECRET_KEY_BASE=token rake assets:precompile
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+EXPOSE 80

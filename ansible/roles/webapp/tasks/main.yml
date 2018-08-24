@@ -4,9 +4,9 @@
 
 - name: Login to private GitLab registry
   docker_login:
-    registry_url: "{{ lookup('env', $CI_REGISTRY) }}"
-    username: "{{ lookup('env', $CI_REGISTRY_USER) }}"
-    password: "{{ lookup('env', $CI_JOB_TOKEN) }}"
+    registry_url: "{{ lookup('env', '$CI_REGISTRY') }}"
+    username: "{{ lookup('env', '$CI_REGISTRY_USER') }}"
+    password: "{{ lookup('env', '$CI_JOB_TOKEN') }}"
 #    registry_url: registry.gitlab.com
 #    username: gitlab+deploy-token-12980
 #    password: NnKYqna3-113b4gex9-X

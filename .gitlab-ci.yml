@@ -11,6 +11,7 @@ build:
     - docker:dind
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+    - cp config/database.sample.yml config/database.yml
   script:
     - docker build -t registry.gitlab.com/oozywaters/qna .
     - docker push registry.gitlab.com/oozywaters/qna

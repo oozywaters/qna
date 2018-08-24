@@ -17,6 +17,7 @@ postgres:
 app:
   image: registry.gitlab.com/oozywaters/qna:latest
   container_name: qna
+  command: ["rails", "db:migrate"]
   ports:
     - '80:80'
   links:

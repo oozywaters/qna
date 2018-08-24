@@ -15,3 +15,8 @@
 - name: Run docker-compose
   docker_service:
     project_src: '{{ deploy_dir }}'
+    remove_orphans: true
+  register: output
+
+- debug:
+    var: output

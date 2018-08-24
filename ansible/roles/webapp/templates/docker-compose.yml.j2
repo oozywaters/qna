@@ -1,5 +1,24 @@
-nginx:
+redis:
+  image: redis:4.0.11
+  container_name: redis
+  ports:
+    - '6379:6379'
+  volumes:
+    - ~/.docker-volumes/qna/redis/data:/var/lib/redis/data
+
+postgres:
+  image: postgres:10.5
+  container_name: postgres
+  ports:
+    - '5432:5432'
+  volumes:
+    - ~/.docker-volumes/qna/postgresql/data:/var/lib/postgresql/data
+
+app:
   image: registry.gitlab.com/oozywaters/qna:latest
   container_name: qna
   ports:
     - '80:80'
+  links:
+    - redis
+    - postgres

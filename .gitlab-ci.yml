@@ -35,6 +35,9 @@ stages:
 #  APP_DB_NAME: qna
 #  APP_DB_USERNAME: postgres
 #  APP_DB_PASSWORD: '123456'
+#  CI_REGISTRY_USER: gitlab+deploy-token-12980
+#  CI_JOB_TOKEN: NnKYqna3-113b4gex9-X
+#  CI_REGISTRY: registry.gitlab.com
 
 build:
   stage: build

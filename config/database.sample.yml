@@ -17,6 +17,8 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  host: db
+  port: 5432
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -80,6 +82,6 @@ test:
 #
 production:
   <<: *default
-  database: qna_production
-  username: qna
-  password: <%= ENV['QNA_DATABASE_PASSWORD'] %>
+  database: <%= ENV.fetch("APP_DB_NAME") %>
+  username: <%= ENV.fetch("APP_DB_USERNAME") %>
+  password: <%= ENV.fetch("APP_DB_PASSWORD") %>

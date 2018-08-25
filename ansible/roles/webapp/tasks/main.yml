@@ -16,8 +16,8 @@
     password: NnKYqna3-113b4gex9-X
     email: oozy.waters@gmail.com
 
-#- name: Stop and remove all docker container/images
-#  script: script.sh
+- name: Stop and remove all docker container/images
+  script: script.sh
 
 - name: Run docker-compose
   docker_service:

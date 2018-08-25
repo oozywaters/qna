@@ -11,6 +11,9 @@ services:
     db:
         image: postgres:10.5
         container_name: postgres
+        environment:
+          - POSTGRES_USER="{{ lookup('env', 'APP_DB_USERNAME') }}"
+          - POSTGRES_PASSWORD="{{ lookup('env', 'APP_DB_PASSWORD') }}"
         ports:
             - '5432:5432'
         volumes:

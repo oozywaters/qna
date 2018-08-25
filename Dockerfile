@@ -9,6 +9,8 @@ CMD ["/sbin/my_init"]
 RUN rm -f /etc/service/nginx/down
 RUN rm /etc/nginx/sites-enabled/default
 ADD nginx.conf /etc/nginx/sites-enabled/qna_website.conf
+# Add the rails-env configuration file
+ADD rails-env.conf /etc/nginx/main.d/rails-env.conf
 
 RUN apt-get update && apt-get install -y tzdata
 

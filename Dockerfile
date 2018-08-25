@@ -17,8 +17,8 @@ RUN apt-get update && apt-get install -y tzdata
 ADD . /home/app/qna
 WORKDIR /home/app/qna
 RUN chown -R app:app /home/app/qna
-RUN bundle install --deployment
-RUN RAILS_ENV=production SECRET_KEY_BASE=token rake assets:precompile
+RUN sudo -u app bundle install --deployment
+RUN sudo -u app RAILS_ENV=production SECRET_KEY_BASE=token rake assets:precompile
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

@@ -12,7 +12,7 @@ ADD nginx.conf /etc/nginx/sites-enabled/qna_website.conf
 # Add the rails-env configuration file
 ADD rails-env.conf /etc/nginx/main.d/rails-env.conf
 
-RUN apt-get update && apt-get install -y tzdata
+RUN apt-get update && apt-get install -y tzdata sudo
 
 ADD . /home/app/qna
 WORKDIR /home/app/qna

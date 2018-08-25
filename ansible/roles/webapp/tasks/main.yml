@@ -1,6 +1,10 @@
 ---
 - name: Move docker-compose.yml to remote host
   template: src=docker-compose.yml.j2 dest={{ deploy_dir }}/docker-compose.yml
+  register: template_output
+
+- name: Show templating results
+  debug: msg="{{ lookup('template', 'docker-compose.yml.j2') }}"
 
 - name: Login to private GitLab registry
   docker_login:
@@ -12,16 +16,15 @@
 #    password: NnKYqna3-113b4gex9-X
 #    email: oozy.waters@gmail.com
 
+- name: Stop and remove all docker container/images
+  script: script.sh
+
 - name: Run docker-compose
   docker_service:
     project_src: '{{ deploy_dir }}'
-    environment:
-      APP_SECRET_KEY_BASE: "{{ lookup('env', 'APP_SECRET_KEY_BASE') }}"
-      APP_DB_NAME: "{{ lookup('env', 'APP_DB_NAME') }}"
-      APP_DB_USERNAME: "{{ lookup('env', 'APP_DB_USERNAME') }}"
-      APP_DB_PASSWORD: "{{ lookup('env', 'APP_DB_PASSWORD') }}"
     remove_orphans: true
     debug: yes
-  register: output
 
-- debug: msg="{{output}}"
+#
+#- name: Run docker-compose
+#  command: docker-compose -f {{ deploy_dir }}/docker-compose.yml up -d

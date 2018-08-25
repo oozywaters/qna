@@ -16,8 +16,12 @@ postgres:
 
 app:
   image: registry.gitlab.com/oozywaters/qna:latest
-  entrypoint: [bin/entry]
   container_name: qna
+  environment:
+    - APP_SECRET_KEY_BASE="{{ lookup('env', 'APP_SECRET_KEY_BASE') }}"
+    - APP_DB_NAME="{{ lookup('env', 'APP_DB_NAME') }}"
+    - APP_DB_USERNAME="{{ lookup('env', 'APP_DB_USERNAME') }}"
+    - APP_DB_PASSWORD="{{ lookup('env', 'APP_DB_PASSWORD') }}"
   ports:
     - '80:80'
   links:

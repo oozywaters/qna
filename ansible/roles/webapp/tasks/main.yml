@@ -16,8 +16,8 @@
     password: NnKYqna3-113b4gex9-X
     email: oozy.waters@gmail.com
 
-- name: Stop and remove all docker container/images
-  script: script.sh
+#- name: Stop and remove all docker container/images
+#  script: script.sh
 
 - name: Run docker-compose
   docker_service:
@@ -32,6 +32,11 @@
     state: started
     detach: false
     command: 'rake db:setup'
+    env:
+      APP_SECRET_KEY_BASE: "{{ lookup('env', 'APP_SECRET_KEY_BASE') }}"
+      APP_DB_NAME: "{{ lookup('env', 'APP_DB_NAME') }}"
+      APP_DB_USERNAME: "{{ lookup('env', 'APP_DB_USERNAME') }}"
+      APP_DB_PASSWORD: "{{ lookup('env', 'APP_DB_PASSWORD') }}"
   changed_when: false
 #
 #- name: Run docker-compose

@@ -13,10 +13,10 @@ gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '~> 3.0.4'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'mini_racer', platforms: :ruby
+See https://github.com/rails/execjs#readme for more supported runtimes
+gem 'mini_racer', platforms: :ruby
 
-# Use CoffeeScript for .coffee assets and views
+Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
@@ -59,10 +59,9 @@ gem 'oj', '~> 3.6'
 gem 'oj_mimic_json', '~> 1.0'
 gem 'sidekiq'
 gem 'whenever'
-gem 'mysql2', '~> 0.3',    :platform => :ruby
+gem 'mysql2', '~> 0.3', :platform => :ruby
 gem 'thinking-sphinx', '~> 4.0'
 gem 'dotenv-rails'
-gem 'therubyracer'
 gem 'unicorn'
 
 group :development, :test do

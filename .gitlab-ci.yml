@@ -70,4 +70,4 @@ deploy_app:
     - ssh-keyscan -H '142.93.133.29' >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    - 'ansible-playbook ./ansible/deploy.yml -i ./ansible/hosts -vvvv'
+    - 'ansible-playbook ./ansible/deploy.yml -i ./ansible/hosts -vv'

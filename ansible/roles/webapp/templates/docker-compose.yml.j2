@@ -21,7 +21,6 @@ services:
 
     app:
         image: registry.gitlab.com/oozywaters/qna:latest
-        command: ["rake", "db:setup"]
         environment:
             - APP_SECRET_KEY_BASE="{{ lookup('env', 'APP_SECRET_KEY_BASE') }}"
             - APP_DB_NAME="{{ lookup('env', 'APP_DB_NAME') }}"

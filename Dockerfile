@@ -23,6 +23,4 @@ RUN sudo -u app RAILS_ENV=production SECRET_KEY_BASE=token rake assets:precompil
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ENTRYPOINT ["bin/entry"]
-
 EXPOSE 80

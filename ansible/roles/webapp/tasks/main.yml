@@ -25,6 +25,15 @@
     remove_orphans: true
     debug: yes
 
+- name: 'Migrations: run'
+  run_once: true
+  docker_container:
+    name: 'qna'
+    image: 'registry.gitlab.com/oozywaters/qna:latest'
+    state: started
+    detach: false
+    command: 'rake db:setup'
+  changed_when: false
 #
 #- name: Run docker-compose
 #  command: docker-compose -f {{ deploy_dir }}/docker-compose.yml up -d

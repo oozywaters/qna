@@ -1,11 +1,19 @@
 ---
-- name: Run PostgreSQL container
-  docker_container:
+- name: Pull Postgres image
+  docker_image:
     name: postgres
-    image: postgres:10.5
-    state: present
-    exposed_ports:
-      - 5432
+    tag: 9.6
+
+- name: Ensure db container is running
+  docker_container:
+    name: db
+    image: postgres:9.6
+    state: started
+    restart_policy: always
+    pull: false
+    detach: yes
+    ports:
+      - "5432:5432"
     env:
       POSTGRES_USER: "{{ lookup('env', 'APP_DB_USERNAME') }}"
       POSTGRES_PASSWORD: "{{ lookup('env', 'APP_DB_PASSWORD') }}"

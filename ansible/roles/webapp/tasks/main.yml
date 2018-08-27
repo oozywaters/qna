@@ -16,19 +16,40 @@
     password: NnKYqna3-113b4gex9-X
     email: oozy.waters@gmail.com
 
-# - name: Stop and remove all docker container/images
+#- name: Stop and remove all docker container/images
 #  script: script.sh
+
+- name: Pull app image
+  docker_image:
+    name: registry.gitlab.com/oozywaters/qna:latest
+    tag: latest
 
 - name: Run application
   docker_container:
     name: qna
-    image: registry.gitlab.com/oozywaters/qna:latest
-    command: ["rake", "db:setup"]
+    image: registry.gitlab.com/oozywaters/qna
     env:
       APP_SECRET_KEY_BASE: "{{ lookup('env', 'APP_SECRET_KEY_BASE') }}"
       APP_DB_NAME: "{{ lookup('env', 'APP_DB_NAME') }}"
       APP_DB_USERNAME: "{{ lookup('env', 'APP_DB_USERNAME') }}"
       APP_DB_PASSWORD: "{{ lookup('env', 'APP_DB_PASSWORD') }}"
+    links:
+      - db
+    ports:
+      - "80:80"
+
+#- name: Add container to inventory
+#  add_host:
+#    name: qna
+#    ansible_connection: docker
+#  changed_when: false
+#
+#- name: Run migrations
+#  deledate_to: qna
+#  command: rake db:migrate
+
+- name: Run migrations
+  command: docker exec -i qna bash -c 'rake db:setup'
 
 #- name: Run docker-compose
 #  docker_service:

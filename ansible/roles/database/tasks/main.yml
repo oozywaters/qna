@@ -1,0 +1,11 @@
+---
+- name: Run PostgreSQL container
+  docker_container:
+    name: postgres
+    image: postgres:10.5
+    state: present
+    exposed_ports:
+      - 5432
+    env:
+      POSTGRES_USER: "{{ lookup('env', 'APP_DB_USERNAME') }}"
+      POSTGRES_PASSWORD: "{{ lookup('env', 'APP_DB_PASSWORD') }}"

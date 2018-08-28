@@ -68,11 +68,11 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'qna' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-      address:              'smtp.gmail.com',
+      address:              'smtp.mailgun.org',
       port:                 587,
-      domain:               "gmail.com",
-      user_name:            ENV['SMTP_EMAIL'],
-      password:             ENV['G'],
+      domain:               'your-domain',
+      user_name:            ENV['APP_SMTP_LOGIN'],
+      password:             ENV['APP_SMTP_PASSWORD'],
       authentication:       :plain,
       enable_starttls_auto: true
   }

@@ -40,6 +40,9 @@
     ports:
       - "80:80"
 
+- name: Run migrations
+  command: docker exec -i qna bash -c 'rake db:migrate 2>/dev/null || rake db:setup'
+
 #- name: Add container to inventory
 #  add_host:
 #    name: qna
@@ -49,9 +52,6 @@
 #- name: Run migrations
 #  deledate_to: qna
 #  command: rake db:migrate
-
-- name: Run migrations
-  command: docker exec -i qna bash -c 'rake db:setup'
 
 #- name: Run docker-compose
 #  docker_service:

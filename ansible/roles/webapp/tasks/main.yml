@@ -33,6 +33,7 @@
       APP_DB_NAME: "{{ lookup('env', 'APP_DB_NAME') }}"
       APP_DB_USERNAME: "{{ lookup('env', 'APP_DB_USERNAME') }}"
       APP_DB_PASSWORD: "{{ lookup('env', 'APP_DB_PASSWORD') }}"
+      APP_SMTP_DOMAIN: "{{ lookup('env', 'APP_SMTP_DOMAIN') }}"
       APP_SMTP_LOGIN: "{{ lookup('env', 'APP_SMTP_LOGIN') }}"
       APP_SMTP_PASSWORD: "{{ lookup('env', 'APP_SMTP_PASSWORD') }}"
     links:
